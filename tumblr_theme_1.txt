@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>{Title}{block:PostTitle} - {PostTitle}{/block:PostTitle}</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Andrew Clark">
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<link rel="icon" href="{Favicon}"/>
+  	<link rel="alternate" type="application/rss+xml" title="RSS" href="{RSS}"/>
+  	<meta name="viewport" content="width=575"/> <!-- iPhone -->
+
+
+	<!-- Default colors -->
+	<meta name="color:Background" content="#30303D"/>
+	<meta name="color:Text" content="#30303D"/>
+	<meta name="color:DateBorder" content="#30303D"/>
+	<meta name="color:PostBackground" content="#F9F7ED"/>
+	<meta name="color:Links" content="#CC0000"/>
+	
+	<!-- End Default Colors -->
+	<style>
+	
+	body {
+		background-color: {color:Background};
+		font-family: "American Typewriter", Georgia, Serif;
+		margin: 50px 0px 50px 50px;
+	}
+	
+	#wrapper { width: 1050px; }
+
+	a:link { color: {color:Links}; text-decoration: none; }
+	a:hover { color: {color:Links}; text-decoration: none; border-bottom: .2em solid {color:Background};}
+	a:visited { color: {color:Links}; text-decoration: none;}
+	
+	a img { border: 0px solid black;}
+	a img:hover {border-bottom: 0em solid black}
+	
+	#posts {
+		float: left;
+		width: 600px;
+		color: {color:Text};
+	}
+	
+	.post {
+		background-color: {color:PostBackground};
+		clear: both;
+		float: left;
+		margin: 10px 0px;
+		padding: 15px;
+		width: 550px;
+	}
+		
+		.date { width: 40px; float: left; height: 100%;}
+			.date_month { text-transform: uppercase; text-align: center; border-top: .18em solid {color:DateBorder};}
+			.date_day { font-size: 125%; text-align: center; border-bottom: .27em solid {color:DateBorder};}
+			.date_link, .date_time { margin-top: 5px; font-size: 70%; text-align: center;}
+		.video, .audio, .quote, .photo, .link, .conversation, .regular { float: right; width: 500px;}
+	
+	h3 { margin-top: 0em; padding-top: 0em;}
+	
+	.q_words { }
+	.q_source {margin-top: 5px; text-align: right; clear: both;}
+	.ph_caption {margin-top: 5px; text-align: left; float: left; clear: both;}
+	
+	.conversation ul {
+      list-style: none;
+      margin: 0 .5em 1.5em;
+      padding: 0;
+    }
+    
+    .conversation ul li {
+      border-bottom: 1px solid {color:DateBorder};
+      padding: .5em 0;
+    }
+    
+    .conversation ul li .person {
+      font-weight: bold;
+      margin-right: 1em;
+    }
+
+	#head {
+		float: left;
+		padding: 10px 25px 0px 0px;
+	}
+	
+	.headinfo {
+		background-color: {color:PostBackground};
+		width: 400px;
+		margin: 0px 0px 15px 0px;
+		padding: 10px;
+		color: {color:Text;};
+		
+	}
+	
+	#navigation, #footer {
+		background-color: {color:PostBackground};
+		clear: both;
+		float: left;
+		margin: 3px 0px;
+		padding: 5px;
+		width: 570px;
+		font-size: 80%;
+	}
+	
+	#bottom {height:50px; width: 20px;}
+	
+	{CustomCSS}
+    
+	</style>
+	
+</head>
+<body>
+<div id="wrapper">
+<div id="posts">
+	{block:Posts}
+    <div class="post">
+      {block:NewDayDate}
+      <div class="date">
+        <div class="date_month">{ShortMonth}</div>
+        <div class="date_day">{DayOfMonth}</div>
+        <div class="date_time">{12Hour}:{Minutes}{AmPm}</div>
+		<div class="date_link">( <a href="{Permalink}" class="permalink">link</a> )</div>
+      </div>
+      {/block:NewDayDate}
+
+      {block:SameDayDate}
+      <div class="date">
+        <div class="date_month">{ShortMonth}</div>
+        <div class="date_day">{DayOfMonth}</div>
+        <div class="date_time">{12Hour}:{Minutes}{AmPm}</div>
+		<div class="date_link">( <a href="{Permalink}" class="permalink">link</a> )</div>
+      </div>
+      {/block:SameDayDate}
+      
+      {block:Regular}
+      <div class="regular">
+        {block:Title}<h3>{Title}</h3>{/block:Title}
+        {Body}
+      </div>
+      {/block:Regular}
+
+      {block:Quote}
+      <div class="quote">
+		<div class="q_words">&#0147;{Quote}&#0148;</div>
+        <div class="q_source">- {block:Source} {Source} {/block:Source}</div>
+      </div>
+      {/block:Quote}
+
+      {block:Link}
+      <div class="link">
+        <a href="{URL}">{Name}</a>
+        <div class="link-body">
+        {block:Description}{Description}{/block:Description}
+        </div>
+      </div>
+      {/block:Link}
+    
+      {block:Conversation}
+      <div class="conversation">
+        {block:Title}<h3>{Title}</h3>{/block:Title}
+        <ul>
+          {block:Lines}
+          <li>
+            {block:Label}<span class="person">{Label}</span>{/block:Label}
+            <span class="line">{Line}</span></li>
+          {/block:Lines}
+        </ul>
+      </div>
+      {/block:Conversation}
+
+      {block:Photo}
+      <div class="photo">
+        {LinkOpenTag}<img src="{PhotoURL-400}" alt="{PhotoAlt}"/>{LinkCloseTag}
+        {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+      </div>
+      {/block:Photo}
+
+      {block:Audio}
+      <div class="audio">
+      	{AudioPlayerBlack}
+        {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+      </div>
+      {/block:Audio}
+
+      {block:Video}
+      <div class="video">
+        {Video-400}
+        {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+      </div>
+      {/block:Video}
+      <br clear="all"/>
+	</div> <!-- end single post -->
+	{/block:Posts}
+</div>
+
+	
+	<div id="head">
+		<div class="headinfo"><h1><a href="/">{Title}</a></h1></div>
+
+		<div class="headinfo">
+			<p>{Description}</p>
+		</div>
+	</div>
+
+<div id="navigation">
+	{block:NextPage}
+		<a href="{NextPage}">&larr;previous</a> &nbsp;&nbsp;
+	{/block:NextPage}
+
+	<span class="page">You're on page {CurrentPage} of {TotalPages} pages</span> &nbsp;&nbsp;
+
+	{block:PreviousPage}
+		<a href="{PreviousPage}">next &rarr;</a>
+	{/block:PreviousPage}
+</div>
+
+<div id="footer">
+      subscribe via <a href="/rss">rss</a> &nbsp;/&nbsp;
+      powered by <a href="http://www.tumblr.com/" target="_blank">tumblr</a> &nbsp;/&nbsp;
+      theme by <a href="mailto:mrandyclark@gmail.com">andy clark</a>
+</div>
+</div>
+<script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script>
+<script type="text/javascript">
+re_("4rwpa-7bh21f7z3h");
+</script>
+
+</body>
+</html>
+
